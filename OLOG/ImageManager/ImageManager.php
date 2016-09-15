@@ -3,6 +3,8 @@
 namespace OLOG\ImageManager;
 
 
+use Imagick;
+
 class ImageManager
 {
     protected $storage_name;
@@ -109,6 +111,10 @@ class ImageManager
 
     protected function saveImageToStorage($source_image_path_in_file_system, $destiantion_image_file_path_in_storage, $preset_class_name, $save_params_arr = ['quality' => 100])
     {
+        $img = new Imagick($source_image_path_in_file_system);
+        $img->stripImage();
+        $img->writeImage($source_image_path_in_file_system);
+
         $imagine_obj = new \Imagine\Gd\Imagine();
         $image = $imagine_obj->open($source_image_path_in_file_system);
 
